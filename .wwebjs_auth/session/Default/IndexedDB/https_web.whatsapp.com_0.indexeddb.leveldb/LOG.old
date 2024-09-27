@@ -1,7 +1,0 @@
-2024/09/21-06:56:26.643 1f54 Reusing MANIFEST C:\Users\Nicolas Lopez\whatsappBot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/09/21-06:56:26.644 1f54 Recovering log #770
-2024/09/21-06:56:27.899 1f54 Reusing old log C:\Users\Nicolas Lopez\whatsappBot\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000770.log 
-2024/09/21-06:56:30.407 4b70 Level-0 table #779: started
-2024/09/21-06:56:30.631 4b70 Level-0 table #779: 1424246 bytes OK
-2024/09/21-06:56:30.681 4b70 Delete type=0 #770
-2024/09/21-06:56:30.685 4b70 Manual compaction at level-0 from '\x00\xa4\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\xa5\x00\x00\x00' @ 0 : 0; will stop at (end)
