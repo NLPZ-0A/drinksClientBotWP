@@ -16,7 +16,8 @@ const qrcode = require('qrcode-terminal');
 const { CLIENT_RENEG_LIMIT } = require('tls');
 const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
 
-const apiUrl = 'http://127.0.0.1:8000';
+//const apiUrl = 'https://127.0.0.1/';
+const apiUrl = 'https://backenddrinkapp.onrender.com/';
 // Crear el cliente con autenticación local
 const client = new Client({
     authStrategy: new LocalAuth() // Guarda la sesión localmente
