@@ -18,16 +18,7 @@ const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
 const http = require('http');  // Módulo HTTP nativo
 
 
-// Crear un servidor HTTP básico para que Render tenga algo escuchando en un puerto
-const PORT = process.env.PORT || 3000;
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Bot de WhatsApp está corriendo\n');
-});
 
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor escuchando en http://0.0.0.0:${PORT}`);
-});
 
 //const apiUrl = 'https://127.0.0.1/';
 const apiUrl = 'https://backenddrinkapp.onrender.com/';
@@ -264,3 +255,14 @@ try {
 } catch(error){
     console.error('Error al inicializar el cliente:', error);
 }
+
+// Crear un servidor HTTP básico para que Render tenga algo escuchando en un puerto
+const PORT = process.env.PORT || 3000;
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Bot de WhatsApp está corriendo\n');
+});
+
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor escuchando en http://0.0.0.0:${PORT}`);
+});
