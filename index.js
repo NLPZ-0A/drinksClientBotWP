@@ -15,6 +15,19 @@ const { getMyPoints, getMyReferCode,
 const qrcode = require('qrcode-terminal');
 const { CLIENT_RENEG_LIMIT } = require('tls');
 const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
+const http = require('http');  // Módulo HTTP nativo
+
+
+// Crear un servidor HTTP básico para que Render tenga algo escuchando en un puerto
+const PORT = process.env.PORT || 3000;
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Bot de WhatsApp está corriendo\n');
+});
+
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor escuchando en http://0.0.0.0:${PORT}`);
+});
 
 //const apiUrl = 'https://127.0.0.1/';
 const apiUrl = 'https://backenddrinkapp.onrender.com/';
@@ -50,7 +63,7 @@ client.on('message', async (message) => {
     if (lowerCaseMsg.startsWith('qr:')) {
         const qrCode = lowerCaseMsg.split(':')[1];
         console.error(message.from)
-        const response = await fetch('http://localhost:8000/api/register-qr/', {
+        const response = await fetch(`${apiUrl}/api/register-qr/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ qr_code: qrCode, phone_number: message.from })
