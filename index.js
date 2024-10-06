@@ -11,11 +11,12 @@ const { getMyPoints, getMyReferCode,
         getMyRefferrals, getMyRedeemedItems,
         getAvailableItems
       } = require('./src/api');
-       
-const qrcode = require('qrcode-terminal');
+const qrcode = require('qrcode');
+const http = require('http');
+const qrcode_ = require('qrcode-terminal');
 const { CLIENT_RENEG_LIMIT } = require('tls');
 const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
-const http = require('http');  // Módulo HTTP nativo
+
 
 
 
@@ -23,14 +24,24 @@ const http = require('http');  // Módulo HTTP nativo
 //const apiUrl = 'https://127.0.0.1/';
 const apiUrl = 'https://backenddrinkapp.onrender.com/';
 // Crear el cliente con autenticación local
+
 const client = new Client({
     authStrategy: new LocalAuth() // Guarda la sesión localmente
 });
 
+let qrCodeImage = null;
+
+client.on('qr', async (qr) => {
+    console.log('Nuevo QR code recibido');
+    
+    qrCodeImage = await qrcode.toDataURL(qr);
+
+});
+
 // Evento QR
 client.on('qr', (qr) => {
-    const qrcode = require('qrcode-terminal');
-    qrcode.generate(qr, { small: true });
+    const qrcode_ = require('qrcode-terminal');
+    qrcode_.generate(qr, { small: true });
     console.log('Escanea el código QR con WhatsApp.');
 });
 
@@ -258,9 +269,20 @@ try {
 
 // Crear un servidor HTTP básico para que Render tenga algo escuchando en un puerto
 const PORT = process.env.PORT || 3000;
+
 const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Bot de WhatsApp está corriendo\n');
+    if (req.url === '/qr') {
+        if (qrCodeImage) {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(`<img src="${qrCodeImage}" alt="QR Code">`);
+        } else {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end('QR Code no disponible aún. Por favor, espere un momento y recargue la página.');
+        }
+    } else {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Bot de WhatsApp está corriendo\n');
+    }
 });
 
 server.listen(PORT, '0.0.0.0', () => {

@@ -1,2 +1,6 @@
 /node_modules
+/.wwebjsauth
+/wwebjsauth
 /src/.env
+/backup.js
+/request_wrapper.js
