@@ -254,6 +254,7 @@ client.on('message', async (message) => {
     }catch(error){
         console.error(error);
         await message.reply(`⛔*Lo sentimos, obtuvimos un error al procesar tu solicitud, intentelo otra vez.❌*`);
+        delete userState;
     }
     
 });
