@@ -22,7 +22,7 @@ const { Client, LocalAuth, Buttons } = require('whatsapp-web.js');
 
 
 //const apiUrl = 'https://127.0.0.1/';
-const apiUrl = 'https://backenddrinkapp.onrender.com/';
+const apiUrl = 'https://backenddrinkapp.onrender.com';
 // Crear el cliente con autenticación local
 
 const client = new Client({
