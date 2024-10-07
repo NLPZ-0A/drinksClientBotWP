@@ -29,14 +29,6 @@ const client = new Client({
     authStrategy: new LocalAuth() // Guarda la sesión localmente
 });
 
-let qrCodeImage = null;
-
-client.on('qr', async (qr) => {
-    console.log('Nuevo QR code recibido');
-    
-    qrCodeImage = await qrcode.toDataURL(qr);
-
-});
 
 // Evento QR
 client.on('qr', (qr) => {
@@ -116,7 +108,7 @@ client.on('message', async (message) => {
                 switch (userState[phoneNumber].action) {
                     case 'register':
                         console.log('Registrando usuario...');
-                        await handleRegistrationName(message, phoneNumber, apiUrl);
+                        await handleRegistrationName(message, phoneNumber, apiUrl, userState);
                         break;
 
                     case 'add-Qr':
@@ -272,18 +264,10 @@ try {
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
-    if (req.url === '/qr') {
-        if (qrCodeImage) {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(`<img src="${qrCodeImage}" alt="QR Code">`);
-        } else {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('QR Code no disponible aún. Por favor, espere un momento y recargue la página.');
-        }
-    } else {
+
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end('Bot de WhatsApp está corriendo\n');
-    }
+    
 });
 
 server.listen(PORT, '0.0.0.0', () => {
