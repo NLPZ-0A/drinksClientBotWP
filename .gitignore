@@ -1,5 +1,5 @@
 /node_modules
-/.wwebjsauth
+/.wwebjs_auth
 /wwebjsauth
 /src/.env
 /backup.js
